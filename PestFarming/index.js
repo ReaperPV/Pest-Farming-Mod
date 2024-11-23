@@ -19,7 +19,7 @@ register("chat", (player, event) => {
 
         Client.showTitle("&c&lSwap Armour Now!", "You stupid idiot", 0.5, 50, 0.5);
 
-        playSystemSound("./config/ChatTriggers/modules/PestFarming/assets/anvil-drop.wav");
+        playSystemSound("/assets/anvil-drop.wav");
 
     }, 55000);
 }).setCriteria("&r&6&lYUCK!").setContains();
