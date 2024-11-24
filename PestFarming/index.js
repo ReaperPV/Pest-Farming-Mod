@@ -1,19 +1,16 @@
 import request from "../requestV2";
 
-const File = Java.type("java.io.File");
-const AudioSystem = Java.type("javax.sound.sampled.AudioSystem");
+let toggleSounds = false;
 
-function playSystemSound(filePath) {
-    try {
-        let soundFile = new File(filePath);
-        let audioStream = AudioSystem.getAudioInputStream(soundFile);
-        let clip = AudioSystem.getClip();
-        clip.open(audioStream);
-        clip.start();
-    } catch (error) {
-        ChatLib.chat("&cError playing sound: " + error);
-    }
-}
+register("command", () => {
+    toggleSounds = !toggleSounds;
+    ChatLib.chat(`&2&lPestFarming: &aSounds &r${!toggleSounds ? "&aEnabled" : "&cDisabled"}`);
+}).setName("pf").setAliases(["pestfarming"]);
+
+register('soundPlay', (pos, name, vol, pitch, cat, event) => {
+    if (!toggleSounds) return;
+    if (name !== "random.anvil_land") cancel(event);
+})
 
 function isFinnegan() {
     return request({
@@ -34,6 +31,6 @@ register("chat", (player, event) => {
 
         Client.showTitle("&c&lSwap Armour Now!", "You stupid idiot", 0.5, 50, 0.5);
 
-        playSystemSound("./config/ChatTriggers/modules/PestFarming/assets/anvil-drop.wav");
+        World.playSound("random.anvil_land", 1, 1);
     }, cooldown);
 }).setCriteria("&r&6&lYUCK!").setContains();
