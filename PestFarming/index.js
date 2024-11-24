@@ -5,7 +5,7 @@ let toggleSounds = false;
 register("command", () => {
     toggleSounds = !toggleSounds;
     ChatLib.chat(`&2&lPestFarming: &aSounds &r${!toggleSounds ? "&aEnabled" : "&cDisabled"}`);
-}).setName("pf").setAliases(["pestfarming"]);
+}).setName("togglesounds")
 
 register('soundPlay', (pos, name, vol, pitch, cat, event) => {
     if (!toggleSounds) return;
