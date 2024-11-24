@@ -2,7 +2,7 @@
   "name": "PestFarming",
   "creator": "Reaper_PV",
   "description": "A simple pest cooldown alert",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "entry": "index.js",
   "requires": ["requestV2"]
 }
