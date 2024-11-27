@@ -13,12 +13,12 @@ register('soundPlay', (pos, name, vol, pitch, cat, event) => {
 })
 
 function isFinnegan() {
-    return request({
+    request({
         url: 'https://api.hypixel.net/v2/resources/skyblock/election',
         json: true
     })
     .then((response) => {
-        return response.mayor.perks.some(perk => perk.name === "Pest Eradicator") || response.minister.perk.name === "Pest Eradicator";
+        return response.mayor.perks.some(perk => perk.name === "Pest Eradicator") || response.mayor.minister.perk.name === "Pest Eradicator";
     })
     .catch((err) => console.error(`PestFarming: ${err.cause ?? err}`));
 }
