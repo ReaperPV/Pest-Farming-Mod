@@ -16,18 +16,18 @@ register('soundPlay', (pos, name, vol, pitch, cat, event) => {
     if (name !== alertSound) cancel(event);
 })
 
-function isFinnegan() {
-    request({
-        url: 'https://api.hypixel.net/v2/resources/skyblock/election',
-        json: true
-    })
-    .then((response) => {
-        return response.mayor.perks.some(perk => perk.name === "Pest Eradicator") || response.mayor.minister.perk.name === "Pest Eradicator";
-    })
-    .catch((err) => console.error(`PestFarming: ${err.cause ?? err}`));
-}
+let sprayReduction = 2;
 
-const sprayReduction = isFinnegan() ? 4 : 2;
+request({
+    url: 'https://api.hypixel.net/v2/resources/skyblock/election',
+    json: true
+})
+.then((response) => {
+    if (response.mayor.perks.some(perk => perk.name === "Pest Eradicator") || response.mayor.minister.perk.name === "Pest Eradicator") {
+        sprayReduction = 4;
+    }
+})
+.catch((err) => console.error(`PestFarming: ${err.cause ?? err}`));
 
 register("chat", (player, event) => {
     const cooldownReduction = Settings.cooldownReduction ? Settings.cooldownReduction : 20;
